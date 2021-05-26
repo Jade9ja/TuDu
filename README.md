@@ -1,6 +1,6 @@
-# tudu
+# TuDu
 
-A new Flutter project.
+A To-Do app brewed in flutter.
 
 ## Getting Started
 
