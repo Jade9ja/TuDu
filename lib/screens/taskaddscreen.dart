@@ -3,8 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class TaskAddScreen extends StatelessWidget {
+  TaskAddScreen({this.newtaskCallback});
+  final Function newtaskCallback;
+
   @override
   Widget build(BuildContext context) {
+    String taskData;
     return SingleChildScrollView(
       child: Container(
         color: Color(0xff757575),
@@ -28,6 +32,9 @@ class TaskAddScreen extends StatelessWidget {
                 ),
               ),
               TextField(
+                onChanged: (value) {
+                  taskData = value;
+                },
                 autofocus: true,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
@@ -41,7 +48,10 @@ class TaskAddScreen extends StatelessWidget {
                 height: 15.0,
               ),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  newtaskCallback(taskData);
+                  Navigator.pop(context);
+                },
                 color: Colors.lightBlueAccent,
                 minWidth: double.maxFinite,
                 height: 45.0,
