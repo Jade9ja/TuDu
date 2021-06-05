@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tudu/widgets/tasklist.dart';
 import 'package:tudu/screens/taskaddscreen.dart';
-import 'package:tudu/models/task.dart';
+import 'package:tudu/models/task_data.dart';
+import 'package:provider/provider.dart';
 
-class TasksScreen extends StatefulWidget {
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(name: 'Buy milk'),
-    Task(name: 'Buy eggs'),
-    Task(name: 'learn stuff')
-  ];
+class TasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +14,9 @@ class _TasksScreenState extends State<TasksScreen> {
         child: Icon(Icons.add),
         onPressed: () {
           showModalBottomSheet(
-              context: context,
-              builder: (context) => TaskAddScreen(
-                    newtaskCallback: (newValue) {
-                      setState(() {
-                        tasks.add(Task(name: newValue));
-                      });
-                    },
-                  ));
+            context: context,
+            builder: (context) => TaskAddScreen(),
+          );
         },
       ),
       body: Column(
@@ -63,7 +49,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '${tasks.length} Tasks',
+                  '${Provider.of<TaskData>(context).length} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -83,9 +69,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     topLeft: Radius.circular(20.0),
                     topRight: Radius.circular(20.0)),
               ),
-              child: TaskList(
-                tasks: tasks,
-              ),
+              child: TaskList(),
             ),
           ),
         ],

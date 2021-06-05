@@ -1,14 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:tudu/models/task_data.dart';
+import 'package:provider/provider.dart';
 
 class TaskAddScreen extends StatelessWidget {
-  TaskAddScreen({this.newtaskCallback});
-  final Function newtaskCallback;
-
   @override
   Widget build(BuildContext context) {
-    String taskData;
+    String taskString;
     return SingleChildScrollView(
       child: Container(
         color: Color(0xff757575),
@@ -33,7 +32,7 @@ class TaskAddScreen extends StatelessWidget {
               ),
               TextField(
                 onChanged: (value) {
-                  taskData = value;
+                  taskString = value;
                 },
                 autofocus: true,
                 textAlign: TextAlign.center,
@@ -49,7 +48,8 @@ class TaskAddScreen extends StatelessWidget {
               ),
               MaterialButton(
                 onPressed: () {
-                  newtaskCallback(taskData);
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(taskString);
                   Navigator.pop(context);
                 },
                 color: Colors.lightBlueAccent,
